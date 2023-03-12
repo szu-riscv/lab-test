@@ -22,9 +22,10 @@ LINKAGE = $(OBJs) $(LIBs)
 # -I : 
 # -mcmodel : TODO: 
 # -march 
-CFLAGS += -ffreestanding -g -Wall $(INC_FLAGS) -mcmodel=medany -march=rv64g
-CXXFLAGS +=  $(CFLAGS) -fno-rtti -fno-exceptions
-ASFLAGS  += -MMD -I$(INC_DIR)
+COMMON_FLAGS += -march=rv64g_zfh
+CFLAGS += -ffreestanding -g -Wall $(INC_FLAGS) -mcmodel=medany $(COMMON_FLAGS)
+CXXFLAGS +=  $(CFLAGS) -fno-rtti -fno-exceptions $(COMMON_FLAGS)
+ASFLAGS  += -MMD $(INC_FLAGS) $(COMMON_FLAGS)
 
 # -T FILE, --script FILE      Read linker script
 # -melf64lriscv : TODO:

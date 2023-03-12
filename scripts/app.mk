@@ -1,7 +1,8 @@
+EXTRA ?= .
 APP_DIR ?= $(shell pwd)
 INC_DIR += $(APP_DIR)/include
 BUILD_DIR ?= $(APP_DIR)/build
-DST_DIR ?= $(APP_DIR)/build/$(PLAT)
+DST_DIR ?= $(APP_DIR)/build/$(EXTRA)/$(PLAT)
 
 include $(TESTS_HOME)/scripts/riscv64.mk
 include $(TESTS_HOME)/scripts/platform.mk
