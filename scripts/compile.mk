@@ -10,7 +10,7 @@ INC_FLAGS += $(addprefix -I, $(INC_DIR))
 
 OBJs = $(addprefix $(DST_DIR)/, $(addsuffix .o, $(basename $(SRCs))))
 
-LIBs = $(addsuffix -$(ARCH).a, $(join $(addsuffix /build/labcore/, \
+LIBs = $(addsuffix -$(ARCH).a, $(join $(addsuffix /build/$(PLAT)/, \
 	$(addprefix $(TESTS_HOME)/lib/, $(LIB_NAME))), \
 	$(LIB_NAME)-$(PLAT)-$(LIB_MODE) ))
 

@@ -2,7 +2,6 @@
 
 #include "htif.h"
 #include "atomic.h"
-#include <klib.h>
 
 extern uint64_t __htif_base;
 volatile uint64_t tohost __attribute__((section(".htif")));
