@@ -10,10 +10,6 @@ INC_FLAGS += $(addprefix -I, $(INC_DIR))
 
 OBJs = $(addprefix $(DST_DIR)/, $(addsuffix .o, $(basename $(SRCs))))
 
-LIBs = $(addsuffix -$(ARCH).a, $(join $(addsuffix /build/$(PLAT)/, \
-	$(addprefix $(TESTS_HOME)/lib/, $(LIB_NAME))), \
-	$(LIB_NAME)-$(PLAT)-$(LIB_MODE) ))
-
 LINKAGE = $(OBJs) $(LIBs)
 
 # -Wall 输出较多的警告讯息，以便找出程式的错误
@@ -22,7 +18,7 @@ LINKAGE = $(OBJs) $(LIBs)
 # -I : 
 # -mcmodel : TODO: 
 # -march 
-COMMON_FLAGS += -march=rv64g_zfh
+COMMON_FLAGS += -march=rv64gc
 CFLAGS += -ffreestanding -g -Wall $(INC_FLAGS) -mcmodel=medany $(COMMON_FLAGS)
 CXXFLAGS +=  $(CFLAGS) -fno-rtti -fno-exceptions $(COMMON_FLAGS)
 ASFLAGS  += -MMD $(INC_FLAGS) $(COMMON_FLAGS)
@@ -49,22 +45,3 @@ $(DST_DIR)/%.o: %.S
 	@echo $(notdir $(OBJs))
 	@$(AS) $(ASFLAGS) -c -o $@ $(realpath $<)
 
-# ====================
-
-default: build
-
-archive: $(ARCHIVE)
-
-$(LIB_NAME): %:
-	@$(MAKE) -s -C $(TESTS_HOME)/lib/$* LIB_MODE=$(LIB_MODE) archive
-
-$(LIBs): $(LIB_NAME)
-
-$(TARGET_REF).elf: $(OBJs) $(LIBs)
-	@echo + LD "->" $(TARGET).elf 
-	$(LD) $(LDFLAGS) -o $(TARGET_REF).elf --start-group $(LINKAGE) --end-group
-
-build: $(TARGET_REF).elf
-	@$(OBJDUMP) -d $(TARGET_REF).elf > $(TARGET_REF).txt
-	@echo + OBJCOPY "->" $(TARGET_REF).bin
-	@$(OBJCOPY) -S --set-section-flags .bss=alloc,contents -O binary $(TARGET_REF).elf $(TARGET_REF).bin
