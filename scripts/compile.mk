@@ -18,7 +18,7 @@ LINKAGE = $(OBJs) $(LIBs)
 # -I : 
 # -mcmodel : TODO: 
 # -march 
-COMMON_FLAGS += -march=rv64gc
+COMMON_FLAGS += -march=rv64g
 CFLAGS += -ffreestanding -g -Wall $(INC_FLAGS) -mcmodel=medany $(COMMON_FLAGS)
 CXXFLAGS +=  $(CFLAGS) -fno-rtti -fno-exceptions $(COMMON_FLAGS)
 ASFLAGS  += -MMD $(INC_FLAGS) $(COMMON_FLAGS)

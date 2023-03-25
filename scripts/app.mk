@@ -30,7 +30,6 @@ $(LIB_NAME): %:
 	$(MAKE) -C $(TESTS_HOME)/lib/$* LIB_MODE=$(LIB_MODE) ARCH=$(ARCH) archive
 
 $(LIBs): $(LIB_NAME)
-	echo AAAAAAA $(LIBs)
 
 $(TARGET_REF).elf: $(OBJs) $(LIBs)
 	@echo + LD "->" $(TARGET).elf 
