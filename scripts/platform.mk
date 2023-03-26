@@ -7,6 +7,9 @@ ifeq ($(findstring $(PLAT), $(PLATS)), "")
 $(error Invalid platform, please set correct value such as PLAT=$(PLATS))
 endif
 
+# ifeq ($(PLAT), "spike")
+# 	CFLAGS += -DPLAT_SPIKE
+# endif
 PLAT_DIR = $(PLAT_BASE_DIR)/$(PLAT)
 
 
